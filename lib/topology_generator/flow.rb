@@ -11,8 +11,8 @@ module TopologyGenerator
       @topology = nil
     end
 
-    def generate_flow size, alpha, dijkstra_path
-      generate_flow_template size, TopologyGenerator::PREPROCESSED_TOPOLOGY_PATH
+    def generate_flow dijkstra_path, size, alpha, random
+      generate_flow_template TopologyGenerator::PREPROCESSED_TOPOLOGY_PATH, size, random
 
       if alpha.class != Fixnum
         STDERR.puts 'Alpha must be integer'
@@ -33,10 +33,11 @@ module TopologyGenerator
     end
 
     private
-    def generate_flow_template size, topology_path
+    def generate_flow_template topology_path, size, random
       if File.exists? TMP_PATH
         File.unlink TMP_PATH
       end
+      @dummy_flows = []
 
       begin
         topology = File.read topology_path
@@ -58,14 +59,14 @@ module TopologyGenerator
         return
       end
 
-      _generate_dummy(v_size-1, size) if @dummy_flows.empty?
+      _generate_dummy(v_size-1, size, random) if @dummy_flows.empty?
       content = topology + "#{@dummy_flows.size}\n" + @dummy_flows.map{|f| f.join(" ") }.join("\n") + "\n"
       File.write(TMP_PATH, content)
     end
 
     private
-    def _generate_dummy upper, size
-      @gen = TopologyGenerator::Generator.new(upper)
+    def _generate_dummy upper, size, random
+      @gen = TopologyGenerator::Generator.new(upper, random)
       size.times do
         s,d = @gen.generate_flow_pair
         @dummy_flows << [s,d,0] # dummy cost

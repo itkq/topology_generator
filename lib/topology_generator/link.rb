@@ -2,6 +2,12 @@ module TopologyGenerator
   PREPROCESSED_TOPOLOGY_PATH = './preprocessed_topology.tpg'
 
   class Link
+    def self.create
+      if File.exists? PREPROCESSED_TOPOLOGY_PATH
+        File.unlink PREPROCESSED_TOPOLOGY_PATH
+      end
+    end
+
     def self.normal topology_path
       `cp #{topology_path} #{PREPROCESSED_TOPOLOGY_PATH}`
     end

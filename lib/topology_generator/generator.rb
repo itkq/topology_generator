@@ -2,8 +2,8 @@ module TopologyGenerator
   class Generator
     class FlowNotFoundException < StandardError; end
 
-    def initialize size
-      @random = Random.new
+    def initialize size, random
+      @random = random || Random.new
       @size = size
       @uniq_cnt = 0
       @flow_map = {}
