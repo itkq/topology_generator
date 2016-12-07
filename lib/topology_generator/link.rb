@@ -14,7 +14,7 @@ module TopologyGenerator
       output = (lines[0..1] + lines[2..-1].map{|l|
         s,d,c = l.split(" ").map(&:to_i)
         [s,d,random_width(r, fixed_cost, width)].join(" ")
-      }).join("\n")
+      }).join("\n")+"\n"
 
       File.write(PREPROCESSED_TOPOLOGY_PATH, output)
     end

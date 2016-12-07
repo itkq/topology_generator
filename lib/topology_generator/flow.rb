@@ -27,13 +27,9 @@ module TopologyGenerator
 
       result = `#{dijkstra_path} < #{TMP_PATH}`
       base_cost = result.split("\n").map{|l| l.split(" ").map(&:to_i).last }.max
-      flows = @dummy_flows.map{|f|
+      @dummy_flows.map{|f|
         [f[0], f[1], base_cost*alpha].join(" ")
       }
-
-      puts lines[0..2+e_size]
-
-      content = lines[0..2+e_size] + flows
     end
 
     private

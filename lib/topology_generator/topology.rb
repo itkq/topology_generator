@@ -13,7 +13,7 @@ module TopologyGenerator
 
       manager = TopologyGenerator::Flow.new
       topology = manager.generate_flow size, alpha, dijkstra_path
-      topology.join("\n")
+      File.read(TopologyGenerator::PREPROCESSED_TOPOLOGY_PATH)+topology.join("\n")
     end
   end
 end
