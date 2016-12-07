@@ -12,8 +12,9 @@ module TopologyGenerator
       end
 
       manager = TopologyGenerator::Flow.new
-      topology = manager.generate_flow size, alpha, dijkstra_path
-      File.read(TopologyGenerator::PREPROCESSED_TOPOLOGY_PATH)+topology.join("\n")
+      flows = manager.generate_flow size, alpha, dijkstra_path
+      s = flows.size.to_s
+      File.read(TopologyGenerator::PREPROCESSED_TOPOLOGY_PATH)+"#{s}\n"+flows.join("\n")
     end
   end
 end
