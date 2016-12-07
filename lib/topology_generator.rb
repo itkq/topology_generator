@@ -1,5 +1,4 @@
 require "topology_generator/version"
-
-module TopologyGenerator
-  # Your code goes here...
-end
+require "topology_generator/link"
+require "topology_generator/flow"
+require "topology_generator/topology"
